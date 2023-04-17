@@ -1,41 +1,38 @@
-import React, { Component } from "react";
+import React, { useState} from "react";
 import css from './FeedbackForm.module.css';
 import {Statistics} from "components/Statistics/Statistics";
-class Feedback extends Component {
- constructor() {
-  super()
-  this.state = {
-    good: 0,
-    neutral: 0,
-    bad: 0
+const Feedback = () => {
+  const [Good, setGood] = useState(0);
+  const [Neutral, setNeutral] = useState(0);
+  const [Bad, setBad] = useState(0);
+  const [Total, setTotal] = useState(0);
+  const [Positive, setPositive] = useState(0);
+  const newGood = ()=>{
+    setGood(Good + 1)
+    countTotalFeedback();
+    countPositiveFeedback();
+  };
+  const newNeutral = ()=>{
+    setNeutral(Neutral + 1);
+    countTotalFeedback();
+    countPositiveFeedback();
   }
- }
-newFunc = (ewent)=>{
-  const targetClick = ewent.target.innerText.toLowerCase();
-  this.setState(prevState=>{return {[targetClick]:prevState[targetClick]+1}});
-}
-
-// neutralStat = () => {
-//   this.setState(prevState=>{ console.log(prevState.neutral); return {neutral: prevState.neutral + 1}});
-// }
-countTotalFeedback = ()=>{
-  const summOFState = this.state.bad + this.state.neutral + this.state.good;
-  return  summOFState;
-}
-countPositiveFeedback = ()=> Math.round(this.state.good / this.countTotalFeedback() * 100);
-
-  render() {
-    let total = this.countTotalFeedback();
-    let positive = this.countPositiveFeedback();
-    return (
-    <div>
-      <h2>Please leave feedback</h2>
-        <button type="button" className={css.buttonstat} onClick={this.newFunc}>Good</button>
-        <button type="button" className={css.buttonstat} onClick={this.newFunc}>Neutral</button>
-        <button type="button" className={css.buttonstat} onClick={this.newFunc}>Bad</button>
-        {total ? (<Statistics good={this.state.good} neutral={this.state.neutral} bad={this.state.bad} totalFunc={total} positive={positive}/>):<p>There is no feedback</p>}
-    </div>)
+  const newBad = ()=>{
+    setBad(Bad + 1);
+    countTotalFeedback();
+    countPositiveFeedback();
   }
+  const countTotalFeedback = ()=>setTotal(Bad + Neutral + Good)
+  const countPositiveFeedback = () => setPositive(Math.round((Good / Total) * 100));
+  return (
+        <div>
+          <h2>Please leave feedback</h2>
+            <button type="button" className={css.buttonstat} onClick={newGood}>Good</button>
+            <button type="button" className={css.buttonstat} onClick={newNeutral}>Neutral</button>
+            <button type="button" className={css.buttonstat} onClick={newBad}>Bad</button>
+            {Total ? (<Statistics Good={Good} Bad={Bad} Neutral={Neutral} Total={Total} 
+          Positive={Positive}/>):<p>There is no feedback</p>}
+        </div>)
 }
 
 export default Feedback
