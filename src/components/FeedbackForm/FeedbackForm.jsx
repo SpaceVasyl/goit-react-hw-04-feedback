@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState, useEffect} from "react";
 import css from './FeedbackForm.module.css';
 import {Statistics} from "components/Statistics/Statistics";
 const Feedback = () => {
@@ -7,23 +7,10 @@ const Feedback = () => {
   const [Bad, setBad] = useState(0);
   const [Total, setTotal] = useState(0);
   const [Positive, setPositive] = useState(0);
-  // const newGood = ()=>{
-  //   setGood(Good + 1)
-  //   countTotalFeedback();
-  //   countPositiveFeedback();
-  // };
-  // const newNeutral = ()=>{
-  //   setNeutral(Neutral + 1);
-  //   countTotalFeedback();
-  //   countPositiveFeedback();
-  // }
-  // const newBad = ()=>{
-  //   setBad(Bad + 1);
-  //   countTotalFeedback();
-  //   countPositiveFeedback();
-  // }
-  // useEffect(() => { setTotal(Bad + Neutral + Good)}, [Bad, Neutral, Good]);
-  const countPositiveFeedback = () => setPositive(Math.round((Good / Total) * 100));
+ 
+  useEffect(() => { setTotal(Bad + Neutral + Good)}, [Bad, Neutral, Good]);
+  useEffect(() => { setPositive(Math.round((Good / Total) * 100))}, [Good, Total]);
+  
   return (
         <div>
           <h2>Please leave feedback</h2>
