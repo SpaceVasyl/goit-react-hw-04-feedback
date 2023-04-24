@@ -1,14 +1,14 @@
 import React from "react";
-export const Statistics = ({Good, Neutral, Bad, Total, Positive}) => {
+export const Statistics = ({good, neutral, bad, total, positive}) => {
         
   return (
     <>
       <h2>Statistics</h2>
-      <p>Good: {Good}</p>
-      <p>Neutral: {Neutral}</p>
-      <p>Bad: {Bad}</p>
-      <p>Total: {Total}</p>
-      <p>Positive feedback: {Positive} %</p>
+      <p>Good: {good}</p>
+      <p>Neutral: {neutral}</p>
+      <p>Bad: {bad}</p>
+      <p>Total: {total}</p>
+      <p>Positive feedback: {positive} %</p>
     </>
   )
 }
